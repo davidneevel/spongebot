@@ -1,5 +1,4 @@
-
-
+# -*- coding: utf-8 -*-
 import random
 from twython import Twython
 import keys
@@ -18,7 +17,7 @@ auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
 
 api = tweepy.API(auth)
 
- 
+
 
 trump_dict = eval(open("dicts/trumpdict.txt").read())
 print trump_dict
@@ -27,7 +26,7 @@ length = len(trump_dict)
 errors = 0
 print "starting loop"
 while True:
-    for status in tweepy.Cursor(api.user_timeline, screen_name='@realDonaldTrump',tweet_mode="extended").items(3):
+    for status in tweepy.Cursor(api.user_timeline, screen_name='@realDonaldTrump',tweet_mode="extended").items(7):
         print status._json['full_text']
         text = status._json['full_text']
         text = text.encode("utf-8")
@@ -73,6 +72,7 @@ while True:
 
             reconstituted = ".@RealDonaldTrump "
             for i in range(lenText):
+                listText[i] = listText[i].decode("utf-8", 'ignore')
                 # if listText[i] == '"':
                 #        listText[i] += "\"" 
                 # if listText[i] == "'":
@@ -90,9 +90,9 @@ while True:
                     except: 
                         print "skipped a letter"
                 else:
-                   
-                    reconstituted += listText[i]
                 
+                    reconstituted += listText[i]
+            
                 
             print listText
 
@@ -101,7 +101,7 @@ while True:
             if len(reconstituted) > 280:
                 reconstituted = reconstituted[0:280]
             
-            
+            # outgoing = reconstituted.encode("utf-8")
            
             try:
                 api.update_status(reconstituted, in_reply_to_status_id = tweetId) #haven't tried it yet but this should retweet to the tweet.
