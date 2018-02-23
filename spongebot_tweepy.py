@@ -18,7 +18,7 @@ auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
 
 api = tweepy.API(auth)
 
-
+ 
 
 trump_dict = eval(open("dicts/trumpdict.txt").read())
 print trump_dict
